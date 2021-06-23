@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Add Product</h1>
+                        <h1>Add Campaign</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Add Product</li>
+                            <li class="breadcrumb-item active">Add Campaign</li>
                         </ol>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{url("product/save")}}" method="post">
+                            <form action="{{url("campaign/save")}}" method="post">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -43,16 +43,6 @@
                                         <label for="exampleInputEmail1">Description</label>
                                         <input type="text" name="description" value="{{old("description")}}" class="form-control" id="exampleInputEmail1" placeholder="Enter description">
                                         @error("description")<div class="alert alert-danger">{{$message}}</div> @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Price</label>
-                                        <input type="number" name="price" value="{{old("price")}}" step="any" class="form-control" id="exampleInputEmail1" placeholder="Enter price">
-                                        @error("price")<div class="alert alert-danger">{{$message}}</div> @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Quantity</label>
-                                        <input type="number" value="{{old("qty")}}" name="qty" class="form-control" id="exampleInputEmail1" placeholder="Enter qty">
-                                        @error("qty")<div class="alert alert-danger">{{$message}}</div> @enderror
                                     </div>
                                     <div class="form-group">
                                         <select name="category_id">

@@ -1021,10 +1021,10 @@
 <script src="../../dist/js/demo.js"></script>
 <script>
   $(document).ready(function() {
-    $('.product-image-thumb').on('click', function () {
+    $('.campaign-image-thumb').on('click', function () {
       var $image_element = $(this).find('img')
-      $('.product-image').prop('src', $image_element.attr('src'))
-      $('.product-image-thumb.active').removeClass('active')
+      $('.campaign-image').prop('src', $image_element.attr('src'))
+      $('.campaign-image-thumb.active').removeClass('active')
       $(this).addClass('active')
     })
   })

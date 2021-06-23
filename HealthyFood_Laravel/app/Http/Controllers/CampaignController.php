@@ -12,15 +12,15 @@ class CampaignController extends Controller
 {
 
     public  function  all(){
-        $products = Campaign::with("Category")->get();
-        return view('product.list',[
-            "products"=>$products
+        $campaigns = Campaign::with("Category")->get();
+        return view('campaign.list',[
+            "campaigns"=>$campaigns
         ]);
     }
 
     public  function  create(){
         $categories = Category::all();
-        return view('product.create',[
+        return view('campaign.create',[
             "categories" => $categories
         ]);
     }
@@ -28,37 +28,31 @@ class CampaignController extends Controller
     public function save(Request  $request){
         $image = $request->get("image");
         $description = $request->get("description");
-        $price = $request->get("price");
-        $qty = $request->get("qty");
         $category_id = $request->get("category_id");
 
         $request->validate([
-            "name" => "required",
             "image" => "required",
-            "price" => "required|min:0",
-            "qty" => "required|min:1",
+            "description" => "required",
             "category_id" => "required|numeric|min:1",
         ]);
         try {
             Campaign::create([
                 "image"=>$image,
                 "description"=>$description,
-                "price"=>$price,
-                "qty"=>$qty,
                 "category_id"=>$category_id,
             ]);
         } catch (\Exception $e) {
             abort(404);
         }
-        return redirect()->to("product");
+        return redirect()->to("campaign");
     }
 
     public function edit($id)
     {
         $categories = Category::all();
         $pr = Campaign::findOrFail($id);
-        if($pr == null) return redirect()->to("product");
-        return  view('product.edit',[
+        if($pr == null) return redirect()->to("campaign");
+        return  view('campaign.edit',[
             "pr"=>$pr,
             "categories"=>$categories
         ]);
@@ -67,15 +61,27 @@ class CampaignController extends Controller
 
     public  function update($id, Request $request){
         $pr = Campaign::findOrFail($id);
-        if($pr == null)  return redirect()->to("product");
+        if($pr == null)  return redirect()->to("campaign");
 
-        $pr->update([
-            "image"=>$request->get("image"),
-            "description"=>$request->get("description"),
-            "price"=>$request->get("price"),
-            "qty"=>$request->get("qty"),
-            "category_id"=>$request->get("category_id"),
+        $image = $request->get("image");
+        $description = $request->get("description");
+        $category_id = $request->get("category_id");
+
+        $request->validate([
+            "image" => "required",
+            "description" => "required",
+            "category_id" => "required|numeric|min:1",
         ]);
-        return redirect()->to("product");
+        try {
+            $pr->update([
+                "image"=>$image,
+                "description"=>$description,
+                "category_id"=>$category_id,
+            ]);
+        } catch (\Exception $e){
+            abort(404);
+        }
+
+        return redirect()->to("campaign");
     }
 }
